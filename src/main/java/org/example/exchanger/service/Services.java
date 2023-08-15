@@ -1,12 +1,10 @@
 package org.example.exchanger.service;
 
-import org.example.exchanger.models.Currency;
-import org.example.exchanger.storages.Storage;
+import org.example.exchanger.model.Currency;
 
 public interface Services {
-    public void openAccount(String fio, Currency currency);
+    void open(String name, Currency currency);
 
-    public void closeAccount(String numberAccount);
-
+    void close(long id);
 
 }
