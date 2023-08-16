@@ -3,8 +3,8 @@ package org.example.exchanger.exception;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class StorageException extends RuntimeException {
-    public StorageException(String message) {
+public class DebitException extends RuntimeException {
+    public DebitException(String message) {
         super(message);
     }
 }

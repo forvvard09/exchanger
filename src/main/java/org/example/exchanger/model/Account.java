@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 @Getter
 public class Account {
     private long id;
-    @Setter(AccessLevel.NONE)
     @NonNull
     private Currency currency;
     @Setter(AccessLevel.NONE)
