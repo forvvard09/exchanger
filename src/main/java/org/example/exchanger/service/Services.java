@@ -6,7 +6,7 @@ import org.example.exchanger.model.Currency;
 import java.math.BigDecimal;
 
 public interface Services {
-    void open(String name, Currency currency);
+    long open(String name, Currency currency);
 
     void close(long id);
 

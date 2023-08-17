@@ -30,17 +30,18 @@ public class AccountService implements Services {
 
 
     @Override
-    public void open(String name, Currency currency) {
+    public long open(String name, Currency currency) {
         long id = generateNumber(currency.getCode());
         Account account = new Account(currency, name);
         account.setId(id);
-        account.setSum(BigDecimal.valueOf(5));
+        account.setSum(BigDecimal.valueOf(0));
         account.setOpen(true);
         try {
             storage.save(account);
         } catch (StorageException e) {
             log.error("An error occurred while creating an account! The account already exists.");
         }
+        return id;
     }
 
     @Override
@@ -125,8 +126,11 @@ public class AccountService implements Services {
         if (enoughSum(idFrom, sumTransfer, from.getCurrency())) {
             debit(idFrom, sumTransfer, from.getCurrency());
             inflow(idTo, sumTransfer, from.getCurrency());
+            //если разные валюты
+            if (from.getCurrency() != to.getCurrency()) {
+                sumTransfer = conversionOfCurrencies(to, sumTransfer, from.getCurrency());
+            }
             //процент
-            sumTransfer = conversionOfCurrencies(to, sumTransfer, from.getCurrency());
             log.info("Рассчитываем сумму трансфера: " + sumTransfer);
             BigDecimal commission = sumTransfer.multiply(exchangeUtil.getCommission()).divide(new BigDecimal(100));
             log.info("Рассчитываем комиссию: " + commission);
